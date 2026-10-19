@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NOVYX AI</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#090909;color:#f5f5f5;font-family:Arial,sans-serif}
+header{padding:20px;border-bottom:1px solid #292929;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:23px;font-weight:bold;letter-spacing:3px}
+button{background:#202020;color:white;border:1px solid #444;border-radius:12px;padding:12px;cursor:pointer}
+main{max-width:700px;margin:60px auto;padding:20px}
+h1{font-size:36px}
+.muted{color:#888}
+#messages{display:flex;flex-direction:column;gap:12px}
+.msg{padding:14px;border-radius:14px;white-space:pre-wrap;overflow-wrap:anywhere}
+.user{background:#242424;align-self:flex-end;max-width:90%}
+.bot{border:1px solid #333;background:#111}
+footer{position:fixed;bottom:0;left:0;right:0;padding:16px;background:#090909}
+form{max-width:700px;margin:auto;display:flex;gap:8px}
+input{flex:1;min-width:0;background:#171717;color:white;border:1px solid #444;border-radius:12px;padding:14px;font-size:16px}
+small{display:block;text-align:center;color:#777;margin-top:10px}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">NOVYX <span class="muted">AI</span></div>
+<button id="new">+ New chat</button>
+</header>
+<main>
+<h1 id="welcome">Welcome to NOVYX.</h1>
+<p id="subtitle" class="muted">A new space for your ideas.</p>
+<div id="messages"></div>
+</main>
+<footer>
+<form id="form">
+<input id="input" placeholder="Message NOVYX..." autocomplete="off" required>
+<button type="submit">Send ↗</button>
+</form>
+<small>Preview version · AI model not connected</small>
+</footer>
+<script>
+const form=document.getElementById('form');
+const input=document.getElementById('input');
+const messages=document.getElementById('messages');
+function add(text,type){
+const div=document.createElement('div');
+div.className='msg '+type;
+div.textContent=text;
+messages.appendChild(div);
+}
+form.addEventListener('submit',e=>{
+e.preventDefault();
+const text=input.value.trim();
+if(!text)return;
+document.getElementById('welcome').style.display='none';
+document.getElementById('subtitle').style.display='none';
+add(text,'user');
+add("The NOVYX interface is working, but a real AI model is not connected yet.",'bot');
+input.value='';
+});
+document.getElementById('new').onclick=()=>{
+messages.replaceChildren();
+document.getElementById('welcome').style.display='block';
+document.getElementById('subtitle').style.display='block';
+};
+</script>
+</body>
+</html>
